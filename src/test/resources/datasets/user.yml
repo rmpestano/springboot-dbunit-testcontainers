@@ -1,4 +1,4 @@
-USERS:
+users:
   - ID: "regex:\\d+"
     EMAIL: "newUser@gmail.com"
     NAME: "new user"

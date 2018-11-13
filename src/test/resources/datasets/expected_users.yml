@@ -1,4 +1,4 @@
-USERS:
+users:
   - ID: 1
     EMAIL: "dbunit@gmail.com"
     NAME: "dbunit"

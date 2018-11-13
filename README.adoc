@@ -1,9 +1,9 @@
-= SpringBoot DBUnit Sample
+= SpringBoot DBUnit TestContainers Sample
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :important-caption: :heavy_exclamation_mark:
 :caution-caption: :fire:
 :warning-caption: :warning:
 
-A simple SpringBoot (with JPA and Data modules) example application using Database Rider for testing JPA repositories.
+A simple http://spring.io/projects/spring-boot[SpringBoot^] (with JPA and Data modules) example application using https://github.com/database-rider/database-rider[Database Rider (DBUnit)^] and https://github.com/testcontainers/testcontainers-java[TestContainers^] for testing JPA repositories.
 
