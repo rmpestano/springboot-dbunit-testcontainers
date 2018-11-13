@@ -19,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.PostgreSQLContainer;
 
@@ -27,6 +28,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) @ActiveProfiles("integration-test")
 @DBRider //enables database rider in spring tests 
 @DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE) //https://stackoverflow.com/questions/43111996/why-postgresql-does-not-like-uppercase-table-names
@@ -61,7 +63,7 @@ public class SpringBootDBUnitIt {
     }
 
     @Test
-    @DataSet(value = "users.yml") //users table will be cleaned before the test because default seeding strategy
+    @DataSet("users.yml") //users table will be cleaned before the test because default seeding strategy
     @ExpectedDataSet("expected_users.yml")
     public void shouldDeleteUser() throws Exception {
         assertThat(userRepository).isNotNull();
