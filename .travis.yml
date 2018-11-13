@@ -7,5 +7,5 @@ cache:
   - "$HOME/.m2/repository"
 services:
 - docker  
-script: mvn clean test
+script: ./mvnw test
 
