@@ -9,3 +9,9 @@ image:https://travis-ci.org/rmpestano/springboot-dbunit-testcontainers.svg[Build
 
 A simple http://spring.io/projects/spring-boot[SpringBoot^] (with JPA and Data modules) example application using https://github.com/database-rider/database-rider[Database Rider (DBUnit)^] and https://github.com/testcontainers/testcontainers-java[TestContainers^] for testing JPA repositories.
 
+== Running tests
+For running tests you'll need docker installed and run following maven command:
+
+----
+./mvnw test
+----
