@@ -21,6 +21,7 @@ import org.junit.BeforeClass;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 /**
@@ -28,8 +29,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) @ActiveProfiles("integration-test")
+@ActiveProfiles("integration-test")
 @DBRider //enables database rider in spring tests 
 @DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE) //https://stackoverflow.com/questions/43111996/why-postgresql-does-not-like-uppercase-table-names
 public class SpringBootDBUnitIt {
@@ -60,11 +60,15 @@ public class SpringBootDBUnitIt {
         assertThat(userRepository).isNotNull();
         assertThat(userRepository.count()).isEqualTo(3);
         assertThat(userRepository.findByEmail("springboot@gmail.com")).isEqualTo(new User(3));
+        assertThat(userRepository.findAll())
+                .extracting("name")
+                .contains("dbunit","dbrider","springboot");
     }
 
     @Test
     @DataSet("users.yml") //users table will be cleaned before the test because default seeding strategy
     @ExpectedDataSet("expected_users.yml")
+    @Transactional
     public void shouldDeleteUser() throws Exception {
         assertThat(userRepository).isNotNull();
         assertThat(userRepository.count()).isEqualTo(3);
@@ -77,6 +81,7 @@ public class SpringBootDBUnitIt {
     @Test
     @DataSet(cleanBefore = true)//as we didn't declared a dataset DBUnit wont clear the table
     @ExpectedDataSet("user.yml")
+    @Transactional
     public void shouldInsertUser() throws Exception {
         assertThat(userRepository).isNotNull();
         assertThat(userRepository.count()).isEqualTo(0);
